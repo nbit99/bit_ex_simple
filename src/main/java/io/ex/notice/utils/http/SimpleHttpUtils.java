@@ -35,7 +35,7 @@ import java.util.Map.Entry;
 /**
  * <b>功能说明:
  * </b>
- * @author  Peter
+ * @author  ted
  */
 public class SimpleHttpUtils {
 	private static final Log logger = LogFactory.getLog(SimpleHttpUtils.class);
