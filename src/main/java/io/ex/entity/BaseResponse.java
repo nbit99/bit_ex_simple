@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class BaseResponse<T> implements Serializable {
 
+
     public BaseResponse(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
