@@ -5,12 +5,17 @@ import io.ex.entity.ResponseCode;
 import io.ex.notice.*;
 import io.ex.notice.utils.encrypt.ecdsa.ECDSABase64Utils;
 import io.ex.notice.utils.encrypt.sha.Sha256Util;
+import io.ex.notice.utils.ip.IpUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,6 +28,8 @@ public class SystemController {
     private static final String callKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
     private static final String sha256Passphrase = "2dd7ebdc5781c6f5ed060bf42df541284f575367db9d0a07b55e9a91dd55029f";
     private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUJdeRCond1t9+yuA09OQ58GDlu/L8anHKZlmcvlQHNAKylcUk8rBfqa22Ex+/8tDbUq3bXAUU4eZJUCzpLi/0Q==";
+    //IP白名单
+    private static final List<String> WHITE_IPS = Arrays.asList("127.0.0.1", "192.168.132.13");
 
     private final static BaseResponse baseFailResponse = new BaseResponse(ResponseCode.FAIL);
     private final static BaseResponse baseSuccessResponse = new BaseResponse(ResponseCode.SUCCESS);
@@ -30,7 +37,14 @@ public class SystemController {
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse callback(@RequestParam Map<String,String> params, @RequestHeader Map<String, String> headers){
+    public BaseResponse callback(@RequestParam Map<String,String> params, @RequestHeader Map<String, String> headers, HttpServletRequest request){
+        String ip = IpUtil.getIp(request);
+        if(!WHITE_IPS.contains(ip)){
+            log.error("Non-whitelisted IP address：" + ip);
+            baseFailResponse.setMsg("Non-whitelisted IP address：" + ip);
+            return baseFailResponse;
+        }
+
         for(Map.Entry<String, String> entity : params.entrySet()){
             log.debug("param key：" + entity.getKey() + ",value:" + entity.getValue());
         }
@@ -41,8 +55,10 @@ public class SystemController {
         String sign = headers.get(HttpHeadersEnum.ACCESS_SIGN.header());
         String timestamp = headers.get(HttpHeadersEnum.ACCESS_TIMESTAMP.header());
         String passphrase = headers.get(HttpHeadersEnum.ACCESS_PASSPHRASE.header());
+        //sha256(passphrase + "_" + callKey)
+        String calculateSha256Passphrase = Sha256Util.getSHA256(passphrase + "_" + callKey);
 
-        if(!sha256Passphrase.equals(Sha256Util.getSHA256(passphrase + "_" + callKey))){
+        if(!sha256Passphrase.equals(calculateSha256Passphrase)){
             log.error("passphrase error!");
             return baseFailResponse;
         }
