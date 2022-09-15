@@ -45,12 +45,12 @@ public class SystemController {
             return baseFailResponse;
         }
 
-        for(Map.Entry<String, String> entity : params.entrySet()){
-            log.debug("param key：" + entity.getKey() + ",value:" + entity.getValue());
-        }
-        for(Map.Entry<String, String> entity : headers.entrySet()){
-            log.debug("header key：" + entity.getKey() + ",value:" + entity.getValue());
-        }
+//        for(Map.Entry<String, String> entity : params.entrySet()){
+//            log.debug("param key：" + entity.getKey() + ",value:" + entity.getValue());
+//        }
+//        for(Map.Entry<String, String> entity : headers.entrySet()){
+//            log.debug("header key：" + entity.getKey() + ",value:" + entity.getValue());
+//        }
 
         String sign = headers.get(HttpHeadersEnum.ACCESS_SIGN.header());
         String timestamp = headers.get(HttpHeadersEnum.ACCESS_TIMESTAMP.header());
