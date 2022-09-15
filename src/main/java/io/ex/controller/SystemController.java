@@ -19,11 +19,11 @@ public class SystemController {
 
     private static final Log log = LogFactory.getLog(SystemController.class);
 
-    private static final String apiKey = "7cd960272c664024bcfe178ff8d6d8a2";
+    private static final String apiKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
 
-    private static final String sha256Passphrase = "bf635d3c33bdbeeb552ddf3cc669b6887c11303086917dea223be8cfcc907fdc";
+    private static final String sha256Passphrase = "2dd7ebdc5781c6f5ed060bf42df541284f575367db9d0a07b55e9a91dd55029f";
 
-    private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFfVaHiNFon/86NVJMd/6dapRHb7KCyLbRyjfBCxVeSqV3I4WeJ+m1Ftgneu/48p21U6uEdsCvoDK6qarV86wcA==";
+    private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUJdeRCond1t9+yuA09OQ58GDlu/L8anHKZlmcvlQHNAKylcUk8rBfqa22Ex+/8tDbUq3bXAUU4eZJUCzpLi/0Q==";
 
     private final static BaseResponse baseFailResponse = new BaseResponse(ResponseCode.FAIL);
     private final static BaseResponse baseSuccessResponse = new BaseResponse(ResponseCode.SUCCESS);
@@ -74,7 +74,7 @@ public class SystemController {
                 //......
                 //结束成功处理代码
                 return baseSuccessResponse;
-            }else if(method.equalsIgnoreCase(APIConstants.WITHDRAW_METHOD)){
+            }else if(method.equalsIgnoreCase(APIConstants.WITHDRAW_SUCCESS_METHOD)){
                 NoticeWithdrawEntity withdrawEntity = (NoticeWithdrawEntity) entity;
                 log.info("verify sign success，id:" + withdrawEntity.getId() + ",currency:" + withdrawEntity.getCurrency() + ",amount:" + withdrawEntity.getAmount());
                 //开始成功处理代码
@@ -98,10 +98,14 @@ public class SystemController {
 
     private NoticeBaseEntity getEntityByParameters(Map<String,String> params){
         String method = params.get(APIConstants.METHOD);
+        if(method == null){
+            log.error("param method is null");
+            return null;
+        }
         NoticeBaseEntity entity = null;
         if(method.equalsIgnoreCase(APIConstants.CHARGE_METHOD)){
             entity = NoticeDepositEntity.build(params);
-        }else if(method.equalsIgnoreCase(APIConstants.WITHDRAW_METHOD)){
+        }else if(method.equalsIgnoreCase(APIConstants.WITHDRAW_SUCCESS_METHOD)){
             entity = NoticeWithdrawEntity.build(params);
         }else if(method.equalsIgnoreCase(APIConstants.WITHDRAW_CONFIRM_METHOD)){
             entity = NoticeWithdrawEntity.build(params);

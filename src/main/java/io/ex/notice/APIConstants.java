@@ -77,8 +77,8 @@ public class APIConstants {
     public static final String timestamp_key = "timestamp";
 
     public static final String CHARGE_METHOD = "charge";
-    public static final String WITHDRAW_METHOD = "download";
-    public static final String WITHDRAW_CONFIRM_METHOD = "downloadConfirm";
+    public static final String WITHDRAW_SUCCESS_METHOD = "withdrawSuccess";
+    public static final String WITHDRAW_CONFIRM_METHOD = "withdrawConfirm";
 
     public static final String METHOD = "method";
 }
