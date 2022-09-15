@@ -27,7 +27,7 @@ public class NoticeDepositEntity extends NoticeBaseEntity{
     public NoticeDepositEntity(String accessKey) {
         super();
         this.method = "charge";
-        this.accessKey = accessKey;
+        this.callKey = accessKey;
     }
 
 //    public StringBuilder getNotifyUrl(){

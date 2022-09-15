@@ -3,16 +3,16 @@ package io.ex.notice;
 public class NoticeBaseEntity {
 
 //    protected String baseUrl;
-    protected String accessKey;//api key
+    protected String callKey;//api key
     protected String method;//callback api method
     protected String sign;//消息签名
 
-    public String getAccessKey() {
-        return accessKey;
+    public String getCallKey() {
+        return callKey;
     }
 
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
+    public void setCallKey(String callKey) {
+        this.callKey = callKey;
     }
 
     public String getMethod() {
