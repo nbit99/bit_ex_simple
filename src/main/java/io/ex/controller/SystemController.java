@@ -19,10 +19,9 @@ public class SystemController {
 
     private static final Log log = LogFactory.getLog(SystemController.class);
 
-    private static final String apiKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
-
+    //申请api callback生成下列密钥对
+    private static final String callKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
     private static final String sha256Passphrase = "2dd7ebdc5781c6f5ed060bf42df541284f575367db9d0a07b55e9a91dd55029f";
-
     private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUJdeRCond1t9+yuA09OQ58GDlu/L8anHKZlmcvlQHNAKylcUk8rBfqa22Ex+/8tDbUq3bXAUU4eZJUCzpLi/0Q==";
 
     private final static BaseResponse baseFailResponse = new BaseResponse(ResponseCode.FAIL);
@@ -43,7 +42,7 @@ public class SystemController {
         String timestamp = headers.get(HttpHeadersEnum.ACCESS_TIMESTAMP.header());
         String passphrase = headers.get(HttpHeadersEnum.ACCESS_PASSPHRASE.header());
 
-        if(!sha256Passphrase.equals(Sha256Util.getSHA256(passphrase + "_" + apiKey))){
+        if(!sha256Passphrase.equals(Sha256Util.getSHA256(passphrase + "_" + callKey))){
             log.error("passphrase error!");
             return baseFailResponse;
         }
