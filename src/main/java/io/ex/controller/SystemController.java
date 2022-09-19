@@ -3,6 +3,7 @@ package io.ex.controller;
 import io.ex.entity.BaseResponse;
 import io.ex.entity.ResponseCode;
 import io.ex.notice.*;
+import io.ex.notice.config.ApiCallbackConfig;
 import io.ex.notice.utils.encrypt.ecdsa.ECDSABase64Utils;
 import io.ex.notice.utils.encrypt.sha.Sha256Util;
 import io.ex.notice.utils.ip.IpUtil;
@@ -20,16 +21,16 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/system")
-public class SystemController {
+public class SystemController extends ApiCallbackConfig {
 
     private static final Log log = LogFactory.getLog(SystemController.class);
 
     //申请api callback生成下列密钥对
-    private static final String callKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
-    private static final String sha256Passphrase = "2dd7ebdc5781c6f5ed060bf42df541284f575367db9d0a07b55e9a91dd55029f";
-    private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUJdeRCond1t9+yuA09OQ58GDlu/L8anHKZlmcvlQHNAKylcUk8rBfqa22Ex+/8tDbUq3bXAUU4eZJUCzpLi/0Q==";
-    //IP白名单
-    private static final List<String> WHITE_IPS = Arrays.asList("127.0.0.1", "192.168.132.13");
+//    private static final String callKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
+//    private static final String sha256Passphrase = "2dd7ebdc5781c6f5ed060bf42df541284f575367db9d0a07b55e9a91dd55029f";
+//    private static final String publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUJdeRCond1t9+yuA09OQ58GDlu/L8anHKZlmcvlQHNAKylcUk8rBfqa22Ex+/8tDbUq3bXAUU4eZJUCzpLi/0Q==";
+//    //IP白名单
+//    private static final List<String> WHITE_IPS = Arrays.asList("127.0.0.1", "192.168.132.13");
 
     private final static BaseResponse baseFailResponse = new BaseResponse(ResponseCode.FAIL);
     private final static BaseResponse baseSuccessResponse = new BaseResponse(ResponseCode.SUCCESS);

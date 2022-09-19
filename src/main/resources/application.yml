@@ -1,2 +1,6 @@
 server:
   port: 8060
+spring:
+  devtools:
+    restart:
+      enabled: false
