@@ -13,8 +13,8 @@ public class ApiCallbackConfig {
     //IP白名单
     public static final List<String> WHITE_IPS = new ArrayList<>();//Arrays.asList("127.0.0.1", "192.168.132.13");
 
-    public static void init(String encryptPassword) throws Exception {
-        Properties api_properties = CommonConfig.getProperties("api.properties", encryptPassword);
+    public static void init(String filePath, String encryptPassword) throws Exception {
+        Properties api_properties = CommonConfig.getProperties(filePath, encryptPassword);
 
         callKey = api_properties.getProperty("callKey");
         sha256Passphrase = api_properties.getProperty("sha256Passphrase");

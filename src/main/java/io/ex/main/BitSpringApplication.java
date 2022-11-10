@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.Console;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class BitSpringApplication extends SpringApplication {
@@ -18,10 +19,14 @@ public class BitSpringApplication extends SpringApplication {
      * 初始化配置文件
      */
     private static void initConfig() throws Exception {
-        System.out.print("请输入密码：");
-        String password = CommonConfig.getPassword();
+        String filePath = "api.properties";
+        InputStream inputStream = CommonConfig.getInputStream(filePath);
+        String password = null;
+        if(inputStream == null){
+            password = CommonConfig.getPassword();
+        }
         //System.out.println("输入的密码为：" + password);
-        ApiCallbackConfig.init(password);
+        ApiCallbackConfig.init(filePath, password);
     }
 
     @Override

@@ -14,16 +14,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/system")
-public class SystemController extends ApiCallbackConfig {
+public class SystemV2Controller extends ApiCallbackConfig {
 
-    private static final Log log = LogFactory.getLog(SystemController.class);
+    private static final Log log = LogFactory.getLog(SystemV2Controller.class);
 
     //申请api callback生成下列密钥对
 //    private static final String callKey = "81bb9fec3b244f4fb4aeaac35178ea7a";
