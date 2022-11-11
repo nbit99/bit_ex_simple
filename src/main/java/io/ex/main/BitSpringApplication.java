@@ -2,6 +2,7 @@ package io.ex.main;
 
 import io.bit.encrypt.config.CommonConfig;
 import io.ex.notice.config.ApiCallbackConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -22,8 +23,15 @@ public class BitSpringApplication extends SpringApplication {
         String filePath = "api.properties";
         InputStream inputStream = CommonConfig.getInputStream(filePath);
         String password = null;
+
         if(inputStream == null){
-            password = CommonConfig.getPassword();
+            //先读取环境变量的密码
+            String CONFIG_DECRYPT_PWD = System.getenv("CONFIG_DECRYPT_PWD");
+            if(!StringUtils.isEmpty(CONFIG_DECRYPT_PWD)){
+                password = CONFIG_DECRYPT_PWD;
+            }else{//控制台输入密码
+                password = CommonConfig.getPassword();
+            }
         }
         //System.out.println("输入的密码为：" + password);
         ApiCallbackConfig.init(filePath, password);
